@@ -1,0 +1,37 @@
+[package]
+name = "RuinBound"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+avian3d = "0.7"
+avian_rerecast = "0.6"
+bevy = "0.19"
+bevy_landmass = "0.12"
+bevy_rerecast = "0.5"
+landmass_rerecast = "0.3"
+
+# Networking (only compiled with `--features multiplayer`). Lightyear 0.30
+# is the release built against Bevy 0.19. Features are kept to what
+# Milestone 1 uses: host + client, Netcode connection layer, UDP transport.
+lightyear = { version = "0.30", optional = true, default-features = false, features = [
+  "std",
+  "client",
+  "server",
+  "replication",
+  "netcode",
+  "udp",
+] }
+serde = { version = "1", optional = true, features = ["derive"] }
+
+[features]
+default = []
+# Co-op multiplayer. Offline play is identical with or without this feature.
+#   cargo run --features multiplayer -- --host
+#   cargo run --features multiplayer -- --join 127.0.0.1
+multiplayer = ["dep:lightyear", "dep:serde"]
+# Online play through Steam's relay network (Milestone 9). Needs the Steam
+# client running and logged in. Uses Valve's test App ID 480 (Spacewar).
+#   cargo run --features steam -- --host-steam
+#   cargo run --features steam -- --join-steam 7656119XXXXXXXXXX
+steam = ["multiplayer", "lightyear/steam"]

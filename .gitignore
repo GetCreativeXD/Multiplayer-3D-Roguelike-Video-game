@@ -1,0 +1,30 @@
+/target
+
+# Rust build files
+target/
+
+# Rust IDE/editor files
+.idea/
+.vscode/
+*.swp
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Blender temporary files
+*.blend1
+*.blend2
+
+# Generated exports
+build/
+dist/
